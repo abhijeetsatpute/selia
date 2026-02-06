@@ -42,6 +42,13 @@ const guides = [
       'Fullstack React framework with routing, SSR, and built-in optimizations',
     icon: '/nextjs.svg',
   },
+  {
+    name: 'Laravel',
+    href: '/docs/installation/laravel',
+    description:
+      'Laravel is a PHP framework for building web application',
+    icon: '/laravel.svg',
+  },
 ];
 
 export function InstallationGuides({ type }: { type: 'framework' | 'manual' }) {
