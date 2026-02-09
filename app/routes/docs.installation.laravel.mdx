@@ -1,0 +1,58 @@
+# Install Selia with Laravel
+
+Learn how to install and set up Selia in your Laravel project using the Laravel Installer or Composer, integrating seamlessly with your backend for enhanced UI.
+
+<DocsButtons />
+
+## Features included
+
+<ul>
+  <li>Authentication</li>
+  <li>Roles and permissions</li>
+  <li>User list management</li>
+  <li>Role list management</li>
+  <li>Permission list management</li>
+  <li>Password reset</li>
+  <li>Email verification</li>
+  <li>Update profile</li>
+  <li>Delete profile</li>
+  <li>Dark mode support</li>
+  <li>Multiple language support (mcamara/laravel-localization and i18next)</li>
+  <li>SQLite by default, configurable to MySQL or PostgreSQL</li>
+</ul>
+
+## Laravel installer
+
+Run the following command to create a new Laravel project template:
+
+```bash filename="terminal"
+laravel new app --using=yuisalabs/selia-laravel
+```
+
+## Composer
+
+Alternatively, you can create a new Laravel project using Composer:
+
+```bash filename="terminal"
+composer create-project yuisalabs/selia-laravel app
+```
+
+Once installed, you can start adding components to your project by running:
+<CodeTabs items={['npm', 'pnpm', 'yarn', 'bun']} id="pm">
+  <CodeTabsPanel value="npm" language="bash">
+    npx selia@latest add accordion
+  </CodeTabsPanel>
+  <CodeTabsPanel value="pnpm" language="bash">
+    pnpx selia@latest add accordion
+  </CodeTabsPanel>
+  <CodeTabsPanel value="yarn" language="bash">
+    yarn selia@latest add accordion
+  </CodeTabsPanel>
+  <CodeTabsPanel value="bun" language="bash">
+    bunx selia@latest add accordion
+  </CodeTabsPanel>
+</CodeTabs>
+
+## Source Code
+
+You can also clone the repository to get started right away. Clone the latest version from the [Github repository](https://github.com/yuisalabs/selia-laravel):

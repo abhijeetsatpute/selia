@@ -3,6 +3,7 @@ import {
   ItemContent,
   ItemDescription,
   ItemMedia,
+  ItemMeta,
   ItemTitle,
 } from 'components/selia/item';
 import { Link } from 'react-router';
@@ -42,9 +43,22 @@ const guides = [
       'Fullstack React framework with routing, SSR, and built-in optimizations',
     icon: '/nextjs.svg',
   },
+  {
+    name: 'Laravel',
+    href: '/docs/installation/laravel',
+    description:
+      'Laravel Starter Kit built on top Laravel Breeze and Selia UI Library',
+    icon: '/laravel.svg',
+    community: true,
+    author: '@yuisa-scarlet',
+  },
 ];
 
-export function InstallationGuides({ type }: { type: 'framework' | 'manual' }) {
+export function InstallationGuides({
+  type,
+}: {
+  type: 'framework' | 'manual' | 'community';
+}) {
   if (type === 'manual') {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -64,19 +78,42 @@ export function InstallationGuides({ type }: { type: 'framework' | 'manual' }) {
     );
   }
 
+  if (type === 'community') {
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {guides
+          .filter((guide) => guide.community)
+          .map((guide) => (
+            <Item key={guide.name} render={<Link to={guide.href} />}>
+              <ItemMedia className="mt-1">
+                <img src={guide.icon} alt={guide.name} className="size-11" />
+              </ItemMedia>
+              <ItemContent className="ml-2">
+                <ItemTitle className="text-lg">{guide.name}</ItemTitle>
+                <ItemDescription>{guide.description}</ItemDescription>
+                <ItemMeta>By {guide.author}</ItemMeta>
+              </ItemContent>
+            </Item>
+          ))}
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      {guides.map((guide) => (
-        <Item key={guide.name} render={<Link to={guide.href} />}>
-          <ItemMedia className="mt-1">
-            <img src={guide.icon} alt={guide.name} className="size-11" />
-          </ItemMedia>
-          <ItemContent className="ml-2">
-            <ItemTitle className="text-lg">{guide.name}</ItemTitle>
-            <ItemDescription>{guide.description}</ItemDescription>
-          </ItemContent>
-        </Item>
-      ))}
+      {guides
+        .filter((guide) => !guide.community)
+        .map((guide) => (
+          <Item key={guide.name} render={<Link to={guide.href} />}>
+            <ItemMedia className="mt-1">
+              <img src={guide.icon} alt={guide.name} className="size-11" />
+            </ItemMedia>
+            <ItemContent className="ml-2">
+              <ItemTitle className="text-lg">{guide.name}</ItemTitle>
+              <ItemDescription>{guide.description}</ItemDescription>
+            </ItemContent>
+          </Item>
+        ))}
     </div>
   );
 }
