@@ -1,24 +1,24 @@
 'use client';
 
-import { Dialog as BaseDialog } from '@base-ui/react/dialog';
+import { DrawerPreview as BaseDrawer } from '@base-ui/react/drawer';
 import { buttonVariants } from './button';
 import { cn } from '#utils';
 import { XIcon } from 'lucide-react';
 
 export function Drawer({
   ...props
-}: React.ComponentProps<typeof BaseDialog.Root>) {
-  return <BaseDialog.Root data-slot="drawer" {...props} />;
+}: React.ComponentProps<typeof BaseDrawer.Root>) {
+  return <BaseDrawer.Root data-slot="drawer" swipeDirection="right" {...props} />;
 }
 
 export function DrawerTrigger({
   children,
   ...props
-}: React.ComponentProps<typeof BaseDialog.Trigger>) {
+}: React.ComponentProps<typeof BaseDrawer.Trigger>) {
   return (
-    <BaseDialog.Trigger data-slot="drawer-trigger" {...props}>
+    <BaseDrawer.Trigger data-slot="drawer-trigger" {...props}>
       {children}
-    </BaseDialog.Trigger>
+    </BaseDrawer.Trigger>
   );
 }
 
@@ -26,30 +26,34 @@ export function DrawerPopup({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof BaseDialog.Popup>) {
+}: React.ComponentProps<typeof BaseDrawer.Popup>) {
   return (
-    <BaseDialog.Portal>
-      <BaseDialog.Backdrop
+    <BaseDrawer.Portal>
+      <BaseDrawer.Backdrop
         className={cn(
           'fixed inset-0 min-h-dvh bg-black/60 transition-[color,opacity] backdrop-blur-sm',
           'data-[starting-style]:opacity-0 data-[ending-style]:opacity-0',
         )}
       />
-      <BaseDialog.Popup
-        data-slot="drawer-popup"
-        {...props}
-        className={cn(
-          'fixed inset-y-0 right-0 w-full max-w-md',
-          'bg-dialog text-dialog-foreground backdrop-blur-sm',
-          'shadow-lg outline-none transition-all',
-          'data-[starting-style]:translate-x-full data-[ending-style]:translate-x-full',
-          'flex flex-col',
-          className,
-        )}
+      <BaseDrawer.Viewport
+        className={cn('fixed inset-y-0 right-0 w-full max-w-md')}
       >
-        {children}
-      </BaseDialog.Popup>
-    </BaseDialog.Portal>
+        <BaseDrawer.Popup
+          data-slot="drawer-popup"
+          {...props}
+          className={cn(
+            'w-full h-full',
+            'bg-dialog text-dialog-foreground backdrop-blur-sm',
+            'shadow-lg outline-none transition-all',
+            'data-[swiping]:transition-none',
+            'flex flex-col',
+            className,
+          )}
+        >
+          {children}
+        </BaseDrawer.Popup>
+      </BaseDrawer.Viewport>
+    </BaseDrawer.Portal>
   );
 }
 
@@ -73,15 +77,15 @@ export function DrawerTitle({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof BaseDialog.Title>) {
+}: React.ComponentProps<typeof BaseDrawer.Title>) {
   return (
-    <BaseDialog.Title
+    <BaseDrawer.Title
       data-slot="drawer-title"
       {...props}
       className={cn('text-xl font-semibold', className)}
     >
       {children}
-    </BaseDialog.Title>
+    </BaseDrawer.Title>
   );
 }
 
@@ -105,15 +109,15 @@ export function DrawerDescription({
   className,
   children,
   ...props
-}: React.ComponentProps<typeof BaseDialog.Description>) {
+}: React.ComponentProps<typeof BaseDrawer.Description>) {
   return (
-    <BaseDialog.Description
+    <BaseDrawer.Description
       data-slot="drawer-description"
       {...props}
       className={cn('text-muted leading-relaxed', className)}
     >
       {children}
-    </BaseDialog.Description>
+    </BaseDrawer.Description>
   );
 }
 
@@ -142,15 +146,15 @@ export function DrawerClose({
   children,
   render,
   ...props
-}: React.ComponentProps<typeof BaseDialog.Close>) {
+}: React.ComponentProps<typeof BaseDrawer.Close>) {
   return (
-    <BaseDialog.Close
+    <BaseDrawer.Close
       data-slot="drawer-close"
       render={render}
       {...props}
       className={cn(!render && buttonVariants({ variant: 'plain' }), className)}
     >
       {children || <XIcon className="size-5" />}
-    </BaseDialog.Close>
+    </BaseDrawer.Close>
   );
 }
